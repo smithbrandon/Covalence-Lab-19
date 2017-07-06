@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>  
+        <base href="/">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        
+
+        <!--lib files-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-route.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-resource.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="app.js"></script>
+
+        <!--controllers-->
+        <script src="js/controllers/blogControllers.js"></script>
+
+        <!--services and directives-->
+        <script src="js/services/categoryFactory.js"></script>
+        <script src="js/services/postFactory.js"></script>
+        <script src="js/services/userFactory.js"></script>
+        <script src="js/services/userServices.js"></script> 
+    </head>
+    <body ng-app="angularBlog">
+        <ng-view></ng-view>
+        
+
+    </body>
+</html>

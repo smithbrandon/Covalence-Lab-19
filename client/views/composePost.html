@@ -1,0 +1,41 @@
+</br>
+</br>
+<div class="container">
+    <div class="row col-sm-8 col-sm-offset-2">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Compose a Post
+            </div>
+            <div class="panel-body">
+                <div class="form-inline">
+                    <div class="row">
+                        <div class="form-group col-sm-4 col-sm-offset-1 row">
+                            <label for="nameSelect" class="col-sm-4">User: </label>
+                            <select ng-options="user as (user.firstname +' '+ user.lastname) for user in users track by user.id" ng-model="userSelect" id="nameSelect" class="col-sm-8">
+                                <option value="" disabled selected>Please Select</option>
+                            </select>       
+                        </div>
+                        <div class="form-group col-sm-5 col-sm-offset-1 row">
+                            <label for="catSelect" class="col-sm-4">Category: </label>
+                            <select ng-options="category as category.name for category in categories track by category.id" ng-model="categorySelect" id="catSelect" class="col-sm-8">
+                                <option value="" disabled selected>Please Select</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row" id="titleBox">
+                        <div class="form-group col-sm-10 col-sm-offset-1 row">
+                            <label for="title" class="col-sm-2">Title: </label>
+                            <input type="text" ng-model="title" class="col-sm-9" id="title">    
+                        </div>
+                    </div>
+                    <div class="row col-sm-10 col-sm-offset-1">
+                        <textarea ng-model="contents" class="col-sm-12"></textarea>
+                    </div>
+                    <div class="row col-sm-10 col-sm-offset-1" id="save">
+                        <div class="btn btn-primary pull-right" ng-click="save()">Save Post</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

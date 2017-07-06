@@ -1,0 +1,82 @@
+var mysql = require('mysql');
+
+var pool = mysql.createPool({
+    connectionLimit: 10,
+    user: 'angularBlog-admin',
+    password: 'angularPass',
+    database: 'angularBlog',
+    host: 'localhost'
+});
+
+exports.pool = pool;
+
+
+
+exports.rows = function(procedureName, args) {
+    return callProcedure(procedureName, args)
+            .then(function(resultsets) {
+                return resultsets[0];
+            });
+}
+
+exports.row = function(procedureName, args) {
+    return callProcedure(procedureName, args)
+            .then(function(resultsets) {
+                return resultsets[0][0];
+            });
+}
+
+exports.empty = function(procedureName, args) {
+    return callProcedure(procedureName, args)
+            .then(function() {
+                return;
+            });
+}
+
+function callProcedure(procedureName, args) {
+    return new Promise(function(resolve, reject) {
+        pool.getConnection(function(err, connection) {
+            if (err) {
+                reject(err);
+            } else {
+                var placeholders = '';
+                if (args && args.length > 0) {
+                    for (var i = 0; i < args.length; i++) {
+                        if (i === args.length - 1) {
+                            placeholders += '?';
+                        } else {
+                            placeholders += '?,';
+                        }
+                    }
+                }
+                var callString = 'CALL ' + procedureName + '(' + placeholders + ');';
+                connection.query(callString, args, function(err, resultsets) {
+                    connection.release();
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(resultsets);
+                    }
+                });
+            }
+        });
+    });
+}
+
+
+
+
+
+
+function isAsset(path) {
+    var pieces = path.split('/');
+    if (pieces.length === 0) { return false; }
+    var last = pieces[pieces.length - 1];
+    if (path.indexOf('/api') !== -1 || path.indexOf('/?') !== -1) {
+        return true;
+    } else if (last.indexOf('.') !== -1) {
+        return true;
+    } else {
+        return false;
+    }
+}

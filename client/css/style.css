@@ -1,0 +1,14 @@
+#save{
+    margin-top: 25px;
+}
+textarea{
+    height: 250px;
+    resize: none;
+}
+
+#titleBox{
+    margin: 25px 0;
+}
+#loneCat{
+    margin-top: 10px;
+}
