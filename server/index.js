@@ -5,6 +5,7 @@ var api = require('./api');
 var cookieParser = require('cookie-parser');
 var configurePassport = require('./config/passport');
 var auth = require('./middleware/auth.mw');
+var routing = require("./middleware/routing.mw");
 
 var indexPath = path.join(__dirname, '../client/index.html');
 var clientPath = path.join(__dirname, '../client');
@@ -17,17 +18,8 @@ app.use(bodyParser.json());
 
 configurePassport(app);
 
-app.get('*', auth.isLoggedIn);
-
 app.use('/api', api);
 
-app.get('*'
-    , function (req, res, next) {
-        if (isAsset(req.url)) {
-            return next();
-        } else {
-            res.sendFile(indexPath);
-        }
-    });
+app.get('*', routing.stateRouting);
 
 app.listen(3000);

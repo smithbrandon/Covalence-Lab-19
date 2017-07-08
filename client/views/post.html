@@ -22,9 +22,8 @@
                     <div class="row col-sm-10 col-sm-offset-1">
                         <p>{{post.content}}</p>
                     </div>
-                    <div class="row col-sm-3 pull-right" id="save">
-                        <div ng-click="del()" class="btn btn-danger">Delete</div>
-                        <a href="/{{post.id}}/update" class="btn btn-warning">Edit</a>                        
+                    <div class="row col-sm-3 pull-right" ng-show="navUser">
+                        <a href="/{{post.id}}/update" class="btn btn-warning">Edit</a>
                     </div>
                 </div>
             </div>

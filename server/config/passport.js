@@ -4,6 +4,7 @@ var session = require('express-session');
 var MySQLStore = require('express-mysql-session')(session);
 var LocalStrategy = require('passport-local').Strategy;
 var userProc = require('../procedures/users.proc');
+var utils = require('../../utils');
 var pool = require('./db').pool;
 
 function configurePassport(app) {
@@ -12,15 +13,23 @@ function configurePassport(app) {
         usernameField: 'email',
         passwordField: 'password'
     }, function (email, password, done) {
+        var loginError = 'Invalid Login Credentials';
         userProc.readByEmail(email).then(function (user) {
             if (!user) {
-                return done(null, false);
+                return done(null, false, {message: loginError});
             }
-            if (user.password !== password) {
-                return done(null, false, { message: 'The Username or Password' });
-            }
-            return done(null, user);
-        }, function (err) { return done(err); });
+            return utils.checkPassword(password, user.password)
+                .then(function(matches){
+                    if(matches){
+                        delete user.password;
+                        return done(null, user);
+                    }else{
+                        return done(null, false, {message: loginError});
+                    }
+                });
+                }).catch(function (err) { 
+                    return done(err); 
+                });
     }));
 
     passport.serializeUser(function (user, done) {

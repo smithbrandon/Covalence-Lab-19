@@ -9,14 +9,8 @@
             <div class="panel-body">
                 <div class="form-inline">
                     <div class="row">
-                        <div class="form-group col-sm-4 col-sm-offset-1 row">
-                            <label for="nameSelect" class="col-sm-4">User: </label>
-                            <select ng-options="user as (user.firstname +' '+ user.lastname) for user in users track by user.id" ng-model="userSelect" id="nameSelect" class="col-sm-8">
-                                <option value="" disabled selected>Please Select</option>
-                            </select>       
-                        </div>
-                        <div class="form-group col-sm-5 col-sm-offset-1 row">
-                            <label for="catSelect" class="col-sm-4">Category: </label>
+                        <div class="form-group col-sm-10 col-sm-offset-1 row">
+                            <label for="catSelect" class="col-sm-3">Category: </label>
                             <select ng-options="category as category.name for category in categories track by category.id" ng-model="categorySelect" id="catSelect" class="col-sm-8">
                                 <option value="" disabled selected>Please Select</option>
                             </select>

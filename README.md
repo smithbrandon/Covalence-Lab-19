@@ -42,3 +42,13 @@
 ## Extending
 * Finished early and want a challenge?
     * Add views, API routes, and stored procedures for creating, updating, and deleting categories and users
+
+
+# Project 2: Angular Blog (Cont.)
+
+## Objectives - Front-End
+* Create User Management (Admin Only)
+    * create, 
+    * edit, and 
+    * delete 
+* User management screen redirects back to the home page if you are not an admin (hint: the user returned from login or/me will have a role property) Also make it where only administrators can delete blog posts

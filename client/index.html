@@ -1,31 +1,59 @@
 <!DOCTYPE html>
 <html>
-    <head>  
-        <base href="/">
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        
 
-        <!--lib files-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-route.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-resource.js"></script>
-        <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src="app.js"></script>
+<head>
+    <base href="/">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-        <!--controllers-->
-        <script src="js/controllers/blogControllers.js"></script>
 
-        <!--services and directives-->
-        <script src="js/services/categoryFactory.js"></script>
-        <script src="js/services/postFactory.js"></script>
-        <script src="js/services/userFactory.js"></script>
-        <script src="js/services/userServices.js"></script> 
-    </head>
-    <body ng-app="angularBlog">
-        <ng-view></ng-view>
-        
+    <!--lib files-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-route.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-resource.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="app.js"></script>
 
-    </body>
+    <!--controllers-->
+    <script src="js/controllers/blogControllers.js"></script>
+
+    <!--services and directives-->
+    <script src="js/services/categoryFactory.js"></script>
+    <script src="js/services/postFactory.js"></script>
+    <script src="js/services/userFactory.js"></script>
+    <script src="js/services/userServices.js"></script>
+</head>
+
+<body ng-app="angularBlog">
+    <nav class="navbar navbar-default navbar-fixed-top" ng-controller="mainCtrl">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a ng-href="/">
+                    <p class="navbar-text">Archer Blog Spot</p>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav" ng-show="navUser.role==='admin'">
+                    <li class="active"><a href="/admin">Admin<span class="sr-only">(current)</span></a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right col-sm-6">
+                    <li ng-show="!navUser" class="pull-right">
+                        <div class="btn btn-primary navbar-btn" ng-click="login()">Login</div>
+                    </li>
+                    <li ng-show="navUser" class="pull-right">
+                        <div class="btn btn-primary navbar-btn" ng-click="logout()">
+                            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                        </div>
+                    </li>
+                    <li class="pull-right">
+                        <p ng-show="navUser" class="navbar-text">Welcome {{navUser.firstname}}!</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <ng-view></ng-view>
+</body>
+
 </html>

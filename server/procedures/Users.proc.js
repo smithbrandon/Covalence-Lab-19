@@ -9,5 +9,16 @@ exports.all = function(){
 }
 
 exports.read = function(id){
-    return db.row('GetUser',[id])
+    return db.row('getUser',[id]);
+}
+
+exports.add = function(firstname, lastname, email, password, role){
+    return db.row('addUser',[firstname, lastname, email, password, role]);
+}
+
+exports.update = function(id, firstname, lastname, email, password, role){
+    return db.empty('updateUser',[id, firstname, lastname, email, password, role]);
+}
+exports.destroy = function(id){
+    return db.empty('deleteUser',[id])
 }

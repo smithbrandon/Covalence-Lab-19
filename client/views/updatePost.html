@@ -30,6 +30,7 @@
                         <textarea ng-model="contents" ng-value="post.content" class="col-sm-12"></textarea>
                     </div>
                     <div class="row col-sm-10 col-sm-offset-1" id="save">
+                        <div ng-click="del()" ng-show="loggedIn" class="btn btn-danger">Delete</div>
                         <div class="btn btn-primary pull-right" ng-click="updatePost()">Update Post</div>
                     </div>
                 </div>

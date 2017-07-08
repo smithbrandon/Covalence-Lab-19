@@ -1,5 +1,6 @@
 var express = require('express');
 var procedures = require('../procedures/Posts.proc');
+var auth = require('../middleware/auth.mw.js')
 
 var router = express.Router();
 
@@ -12,7 +13,7 @@ router.route('/')
                 res.sendStatus(500);
             });
     })
-    .post(function(req, res){
+    .post(auth.isLoggedIn, function(req, res){
         procedures.add(req.body.title, req.body.user, req.body.category, req.body.contents)
             .then(function(post){
                 res.send(post);
@@ -31,7 +32,8 @@ router.route('/:id')
                 res.sendStatus(500);
             });
         })
-    .put(function(req,res){
+    .put(auth.isLoggedIn, function(req,res){
+        console.log(req.body);
         procedures.update(req.params.id, req.body.title, req.body.categoryid, req.body.content)
             .then(function(post){
                 res.sendStatus(204);
@@ -39,7 +41,7 @@ router.route('/:id')
                 res.sendStatus(500);
             });
     })
-    .delete(function(req,res){
+    .delete(auth.isLoggedIn, function(req,res){
         procedures.destroy(req.params.id)
             .then(function(post){
                 res.sendStatus(204);
