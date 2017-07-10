@@ -1,5 +1,12 @@
-app.controller('mainCtrl', ['$rootScope', '$scope', '$location', 'UserService', function ($rootScope, $scope, $location, UserService) {
+app.controller('mainCtrl', ['$rootScope', '$scope', '$location', 'SEOService', 'UserService', function ($rootScope, $scope, $location, SEOService, UserService) {
 
+    SEOService.setSEO({
+        title: "Archer Blog",
+        image: "",
+        url: $location.url(),
+        description: "A Blog about all things Archer the animated series."
+    });
+    console.log($rootScope.seo);
     checkUser();
 
     function checkUser(){

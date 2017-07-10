@@ -5,7 +5,7 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider,$locati
         $routeProvider
             .when('/',{
                 templateUrl: 'views/welcome.html',
-                controller: 'postsCtrl'
+                controller: 'mainCtrl'
             }).when('/compose',{
                 templateUrl: 'views/composePost.html',
                 controller: 'composeCtrl'
