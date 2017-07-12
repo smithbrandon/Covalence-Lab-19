@@ -3,7 +3,7 @@ var passport = require('passport');
 var session = require('express-session');
 var MySQLStore = require('express-mysql-session')(session);
 var LocalStrategy = require('passport-local').Strategy;
-var userProc = require('../procedures/users.proc');
+var userProc = require('../procedures/Users.proc');
 var utils = require('../../utils');
 var pool = require('./db').pool;
 
