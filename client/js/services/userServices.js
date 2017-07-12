@@ -8,28 +8,16 @@ angular.module('user.services',[]).service('UserService',['$http','$location','$
         }
     }
     this.isAdmin = function(){
-        if(currentUser.role === 'admin'){
+        if(currentUser && currentUser.role === 'admin'){
             return true;
         }else{
             return false;
         }
     }
-    this.requireAdmin = function(){
-        if(!this.isLoggedIn()){
-                var current = $location.path();
-                $location.replace().path('/login').search('dest', current);
-        }else{
-            if(!this.isAdmin()){
-                $location.replace().path('/');
-            }
-        }
-    }
 
-    this.requireLogin = function(){
-        if(!this.isLoggedIn()){
-            var current = $location.path();
-            $location.replace().path('/login').search('dest',current);
-        }
+    this.loginRedirect = function(){
+        var current = $location.path();
+        $location.replace().path('/login').search('dest',current);
     }
 
     this.login = function(email, password){
@@ -66,6 +54,7 @@ angular.module('user.services',[]).service('UserService',['$http','$location','$
                 url: '/api/users/me'
             }).then(function(response){
                 currentUser = response.data;
+                console.log(currentUser);
                 return currentUser;
             })
         }
