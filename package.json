@@ -4,7 +4,7 @@
   "description": "covalence angular blog lab",
   "main": "server/index.js",
   "scripts": {
-    "test": "SOURCE .variables && nodemon",
+    "test": "source .variables && nodemon",
     "start": "node server/index.js"
   },
   "repository": {
