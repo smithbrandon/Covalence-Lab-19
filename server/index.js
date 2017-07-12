@@ -13,7 +13,7 @@ var clientPath = path.join(__dirname, '../client');
 
 var app = express();
 
-prerender.set('prerenderToken', 'YOUR_TOKEN');
+prerender.set('prerenderToken', process.env.PRERENDER_TOKEN);
 // prerender.set('prerenderServiceUrl', 'http://localhost:1337/');
 app.use(prerender)
 app.use(express.static(clientPath));
@@ -26,4 +26,4 @@ app.use('/api', api);
 
 app.get('*', routing.stateRouting);
 
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
