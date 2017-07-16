@@ -8,13 +8,17 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider,$locati
                 controller: 'mainCtrl'
             }).when('/compose',{
                 templateUrl: 'views/composePost.html',
-                controller: 'composeCtrl'
+                controller: 'composeCtrl',
+                requiresLogin: true
             }).when('/:id/update',{
                 templateUrl: 'views/updatePost.html',
-                controller: 'updateCtrl'
+                controller: 'updateCtrl',
+                requiresLogin: true
             }).when('/admin',{
                 templateUrl: 'views/admin.html',
-                controller: 'adminCtrl'
+                controller: 'adminCtrl',
+                requiresLogin: true,
+                requiresAdmin: true,
             }).when('/login',{
                 templateUrl: 'views/login.html',
                 controller: 'loginCtrl'
@@ -22,4 +26,16 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider,$locati
                 templateUrl: 'views/post.html',
                 controller: 'postCtrl'
             }).otherwise({redirectTo: '/'});
-    }]);
+    }])
+
+    .run(['$rootScope', '$location', 'UserService', function($rootScope, $location, UserService) {
+    $rootScope.$on('$routeChangeStart', function(event, nextRoute, previousRoute) {
+        if (nextRoute.$$route.requiresLogin && !UserService.isLoggedIn()) {
+            event.preventDefault();
+            UserService.loginRedirect();
+        } else if (nextRoute.$$route.requiresAdmin && !UserService.isAdmin()) {
+            event.preventDefault();
+            $location.replace().path('/');
+        }
+    });
+}]);

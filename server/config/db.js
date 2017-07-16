@@ -3,14 +3,12 @@ var mysql = require('mysql');
 var pool = mysql.createPool({
     connectionLimit: 10,
     user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: 'angularBlog',
+    password: process.env.DB_PASS,
+    database: process.env.DB_SCHEMA,
     host: process.env.DB_HOST
 });
 
 exports.pool = pool;
-
-
 
 exports.rows = function(procedureName, args) {
     return callProcedure(procedureName, args)

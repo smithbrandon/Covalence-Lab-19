@@ -1,4 +1,4 @@
-app.controller('mainCtrl', ['$rootScope', '$scope', '$location', 'SEOService', 'UserService', function ($rootScope, $scope, $location, SEOService, UserService) {
+app.controller('mainCtrl', ['$rootScope', '$scope', '$location', 'SEOService', 'UserService','Posts', function ($rootScope, $scope, $location, SEOService, UserService,Posts) {
 
     SEOService.setSEO({
         title: "Archer Blog",
@@ -6,8 +6,10 @@ app.controller('mainCtrl', ['$rootScope', '$scope', '$location', 'SEOService', '
         url: $location.url(),
         description: "A Blog about all things Archer the animated series."
     });
-    console.log($rootScope.seo);
+
     checkUser();
+
+    $scope.posts = Posts.query();
 
     function checkUser(){
         UserService.me().then(function (user) {
@@ -48,7 +50,7 @@ app.controller('mainCtrl', ['$rootScope', '$scope', '$location', 'SEOService', '
     }
 
 }]).controller('postsCtrl', ['$scope', 'Posts', '$location', function ($scope, Posts, UserService, $location) {
-    $scope.posts = Posts.query();
+    
 
 }]).controller('updateCtrl', ['$scope', 'Posts', '$routeParams', 'Cat', function ($scope, Posts, $routeParams, Cat) {
     //must be logged and post must belong to them or must be admin

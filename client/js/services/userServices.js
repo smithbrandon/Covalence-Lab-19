@@ -8,7 +8,7 @@ angular.module('user.services',[]).service('UserService',['$http','$location','$
         }
     }
     this.isAdmin = function(){
-        if(currentUser.role === 'admin'){
+        if(currentUser && currentUser.role === 'admin'){
             return true;
         }else{
             return false;
@@ -25,7 +25,7 @@ angular.module('user.services',[]).service('UserService',['$http','$location','$
         }
     }
 
-    this.requireLogin = function(){
+    this.loginRedirect = function(){
         if(!this.isLoggedIn()){
             var current = $location.path();
             $location.replace().path('/login').search('dest',current);

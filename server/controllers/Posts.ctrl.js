@@ -8,15 +8,18 @@ router.route('/')
     .get(function(req,res){
         procedures.all()
             .then(function(posts){
+               res.send('Posts: ' + post);
                 res.status(201).send(posts);
             },function(err){
+                console.log(err);
                 res.sendStatus(500);
             });
     })
     .post(auth.isLoggedIn, function(req, res){
+        console.log(req.body);
         procedures.add(req.body.title, req.body.user, req.body.category, req.body.contents)
             .then(function(post){
-                res.send(post);
+                console.log(post);
             },function(err){
                 console.log(err);
                 res.sendStatus(500);
