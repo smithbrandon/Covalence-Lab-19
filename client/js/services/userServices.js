@@ -14,22 +14,10 @@ angular.module('user.services',[]).service('UserService',['$http','$location','$
             return false;
         }
     }
-    this.requireAdmin = function(){
-        if(!this.isLoggedIn()){
-                var current = $location.path();
-                $location.replace().path('/login').search('dest', current);
-        }else{
-            if(!this.isAdmin()){
-                $location.replace().path('/');
-            }
-        }
-    }
 
     this.loginRedirect = function(){
-        if(!this.isLoggedIn()){
-            var current = $location.path();
-            $location.replace().path('/login').search('dest',current);
-        }
+        var current = $location.path();
+        $location.replace().path('/login').search('dest',current);
     }
 
     this.login = function(email, password){
@@ -66,6 +54,7 @@ angular.module('user.services',[]).service('UserService',['$http','$location','$
                 url: '/api/users/me'
             }).then(function(response){
                 currentUser = response.data;
+                console.log(currentUser);
                 return currentUser;
             })
         }

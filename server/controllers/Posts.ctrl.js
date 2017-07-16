@@ -36,7 +36,6 @@ router.route('/:id')
             });
         })
     .put(auth.isLoggedIn, function(req,res){
-        console.log(req.body);
         procedures.update(req.params.id, req.body.title, req.body.categoryid, req.body.content)
             .then(function(post){
                 res.sendStatus(204);

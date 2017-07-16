@@ -13,12 +13,13 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider,$locati
             }).when('/:id/update',{
                 templateUrl: 'views/updatePost.html',
                 controller: 'updateCtrl',
-                requiresLogin: true
+                requiresLogin: true,
+                requiresAdmin: true
             }).when('/admin',{
                 templateUrl: 'views/admin.html',
                 controller: 'adminCtrl',
                 requiresLogin: true,
-                requiresAdmin: true,
+                requiresAdmin: true
             }).when('/login',{
                 templateUrl: 'views/login.html',
                 controller: 'loginCtrl'
@@ -27,15 +28,14 @@ app.config(['$routeProvider','$locationProvider',function($routeProvider,$locati
                 controller: 'postCtrl'
             }).otherwise({redirectTo: '/'});
     }])
-
-    .run(['$rootScope', '$location', 'UserService', function($rootScope, $location, UserService) {
-    $rootScope.$on('$routeChangeStart', function(event, nextRoute, previousRoute) {
-        if (nextRoute.$$route.requiresLogin && !UserService.isLoggedIn()) {
-            event.preventDefault();
-            UserService.loginRedirect();
-        } else if (nextRoute.$$route.requiresAdmin && !UserService.isAdmin()) {
-            event.preventDefault();
-            $location.replace().path('/');
-        }
-    });
-}]);
+    .run(['$rootScope','$location', 'UserService', function($rootScope, $location, UserService){
+        $rootScope.$on('$routeChangeStart', function(event, nextRoute, previousRoute){
+            if (nextRoute.$$route.requiresLogin && !UserService.isLoggedIn()){
+                event.preventDefault();
+                UserService.loginRedirect();
+            }else if (nextRoute.$$route.requiresAdmin && !UserService.isAdmin()){
+                event.preventDefault();
+                $location.replace().path('/');
+            }
+        });
+    }]);

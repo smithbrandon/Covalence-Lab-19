@@ -75,7 +75,6 @@ router.route('/:id')
     })
     .put(function (req, res) {
         var u = req.body;
-        console.log(u);
         utils.encryptPassword(u.password)
             .then(function (hash) {
                 procedures.update(u.id, u.firstname, u.lastname, u.email, hash, u.role)

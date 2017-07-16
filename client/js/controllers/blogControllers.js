@@ -1,5 +1,7 @@
 app.controller('mainCtrl', ['$rootScope', '$scope', '$location', 'SEOService', 'UserService','Posts', function ($rootScope, $scope, $location, SEOService, UserService,Posts) {
 
+    $scope.posts = Posts.query();
+
     SEOService.setSEO({
         title: "Archer Blog",
         image: "",
@@ -17,11 +19,11 @@ app.controller('mainCtrl', ['$rootScope', '$scope', '$location', 'SEOService', '
         });
     }
 
-    $scope.login = function () {
+    $rootScope.login = function () {
         $location.path('/login');
     }
 
-    $scope.logout = function () {
+    $rootScope.logout = function () {
         UserService.logout().then(function (currentUser) {
             $scope.navUser = undefined;
         });
@@ -49,9 +51,6 @@ app.controller('mainCtrl', ['$rootScope', '$scope', '$location', 'SEOService', '
         });
     }
 
-}]).controller('postsCtrl', ['$scope', 'Posts', '$location', function ($scope, Posts, UserService, $location) {
-    
-
 }]).controller('updateCtrl', ['$scope', 'Posts', '$routeParams', 'Cat', function ($scope, Posts, $routeParams, Cat) {
     //must be logged and post must belong to them or must be admin
 
@@ -61,19 +60,11 @@ app.controller('mainCtrl', ['$rootScope', '$scope', '$location', 'SEOService', '
         $location.replace().path(dest).search('dest', null);
     }
 
-
-
-
     $scope.del = function () {
         $scope.post.$delete(function (success) {
             window.location.replace('/');
         });
     };
-
-
-
-
-
 
     $scope.categories = Cat.query();
     var id = $routeParams.id;
@@ -113,16 +104,8 @@ app.controller('mainCtrl', ['$rootScope', '$scope', '$location', 'SEOService', '
 
 }]).controller('adminCtrl', ['$scope', 'Users', 'UserService', '$routeParams', function ($scope, Users, UserService, $routeParams) {
     //must be logged in and must be admin
-    UserService.requireAdmin(function (success) {
-        getUsers();
-        $scope.addRecord = true;
-    });
-
-
-
-    function getUsers() {
-        $scope.users = Users.query();
-    }
+    $scope.addRecord = true;
+    $scope.users = Users.query();
 
     $scope.changeView = function (view) {
         if (view === 'edit') {
