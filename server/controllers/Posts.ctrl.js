@@ -8,7 +8,7 @@ router.route('/')
     .get(function(req,res){
         procedures.all()
             .then(function(posts){
-               res.send('Posts: ' + post);
+               res.send('Posts: ' + posts);
                 res.status(201).send(posts);
             },function(err){
                 console.log(err);

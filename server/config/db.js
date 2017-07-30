@@ -1,4 +1,4 @@
-var mysql = require('mysql');
+var db = require('mysql');
 
 var pool = mysql.createPool({
     connectionLimit: 10,
@@ -13,14 +13,14 @@ exports.pool = pool;
 exports.rows = function(procedureName, args) {
     return callProcedure(procedureName, args)
             .then(function(resultsets) {
-                return resultsets[0];
+                return resultsets[0][0];
             });
 }
 
 exports.row = function(procedureName, args) {
     return callProcedure(procedureName, args)
             .then(function(resultsets) {
-                return resultsets[0][0];
+                return resultsets[0];
             });
 }
 
